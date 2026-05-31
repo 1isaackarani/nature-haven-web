@@ -1,0 +1,336 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nature Haven | Explore the Wild</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<style>
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body, html {
+    height: 100%;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+/* Background Video */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    object-fit: cover;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo { font-size: 24px; font-weight: bold; color: #2ecc71; }
+
+.nav-links { list-style: none; display: flex; }
+
+.nav-links li { margin-left: 25px; }
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.nav-links a:hover { color: #2ecc71; }
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hero-content h1 { font-size: 4rem; margin-bottom: 10px; }
+
+.btn-main {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background: #27ae60;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.btn-main:hover { background: #2ecc71; transform: scale(1.1); }
+
+/* About Section */
+.about-section {
+    padding: 100px 50px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    text-align: center;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+.card {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 15px;
+    width: 250px;
+    border: 1px solid #2ecc71;
+}
+
+/* Login Overlay (Modified) */
+.overlay {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+form {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    width: 350px;
+    text-align: center;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    outline: none;
+}
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+input[type="submit"]:hover { background: #2ecc71; transform: translateY(-3px); }
+
+a { color: #f1c40f; text-decoration: none; font-size: 14px; }
+
+/* Container ya social buttons */
+.social-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Base style ya kila button */
+.social-btn {
+    flex: 1;
+    padding: 10px;
+    border-radius: 25px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 13px;
+    transition: 0.4s ease;
+    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.1); /* Hapa ni glass effect kidogo */
+    display: inline-block;
+}
+
+/* Backgrounds za kawaida kabla ya hover */
+.fb { border-color: #1877f2; }
+.wa { border-color: #25d366; }
+.gm { border-color: #ea4335; }
+
+/* --- RAINBOW HOVER EFFECT --- */
+.social-btn:hover {
+    transform: translateY(-5px);
+    color: white;
+    border-color: transparent;
+    /* Hii ndio inaunda hio rainbow gradient */
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    background-size: 400%;
+    animation: rainbow-animation 3s linear infinite;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation ya kufanya rainbow itembee */
+@keyframes rainbow-animation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Hii inafanya hio Header (H1) iwe na rangi zinazochenga chenga */
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 10px;
+    background: linear-gradient(to right, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shine 3s linear infinite;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Hii inaunda hio glowing bulb effect kwa container ya text */
+.hero-content {
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    border: 4px solid #fff;
+    /* Hapa ndio "Bulb" effect inatokea */
+    animation: border-glow 4s linear infinite;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Animation ya rangi za text */
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+/* Animation ya hio "Rainbow Bulb" border */
+@keyframes border-glow {
+    0% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
+    14% { border-color: #ff7300; box-shadow: 0 0 30px #ff7300; }
+    28% { border-color: #fffb00; box-shadow: 0 0 30px #fffb00; }
+    42% { border-color: #48ff00; box-shadow: 0 0 30px #48ff00; }
+    56% { border-color: #00ffd5; box-shadow: 0 0 30px #00ffd5; }
+    70% { border-color: #002bff; box-shadow: 0 0 30px #002bff; }
+    84% { border-color: #7a00ff; box-shadow: 0 0 30px #7a00ff; }
+    100% { border-color: #ff0000; box-shadow: 0 0 30px #ff0000; }
+}
+
+/* Optional: Fanya hio button pia iwe na pulse ya mwangaza */
+.btn-main {
+    animation: pulse-glow 2s infinite;
+}
+
+@keyframes pulse-glow {
+    0% { transform: scale(1); box-shadow: 0 0 0px #27ae60; }
+    50% { transform: scale(1.05); box-shadow: 0 0 20px #2ecc71; }
+    100% { transform: scale(1); box-shadow: 0 0 0px #27ae60; }
+}
+
+</style>
+
+    <video class="video-background" autoplay loop muted playsinline>
+        <source src="https://assets.mixkit.co/videos/34167/34167-720.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <nav class="navbar">
+        <div class="logo">NatureHaven</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#login">Gallery</a></li>
+            <li><a href="#about">About Nature</a></li>
+            <li><a href="#login">Login</a></li>
+        </ul>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Protect Our Planet</h1>
+            <p>Nature is not a place to visit. It is home. Discover the beauty of the wild.</p>
+            <a href="#about" class="btn-main">Explore More</a>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="content-box">
+            <h2>Why Nature Matters?</h2>
+            <p>Nature provides us with essential services: the air we breathe, the water we drink, and the food we eat. Biodiversity is the foundation of everything.</p>
+            <div class="cards-container">
+                <div class="card">
+                    <h3>Forests</h3>
+                    <p>The lungs of our planet, filtering air and providing shelter.</p>
+                </div>
+                <div class="card">
+                    <h3>Oceans</h3>
+                    <p>Regulating the climate and home to millions of species.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login" class="overlay">
+        <form>
+            <h1>WELCOME BACK</h1>
+            <input type="text" placeholder="Username" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+
+            <input type="submit" value="LOGIN">
+
+            <div class="footer-links">
+                <p><a href="#">Forgot password?</a></p>
+                <p>New here? <a href="https://www.smartbrainskenya.com">Create Account</a></p>
+            </div>
+         <div class="social-buttons">
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.smartbrainskenya.com" 
+       target="_blank" class="social-btn fb">Facebook</a>
+
+    <a href="https://wa.me/254768495675?text=Hello!%20I%20saw%20your%20Nature%20website." 
+       target="_blank" class="social-btn wa">WhatsApp</a>
+
+    <a href="mailto:info@smartbrainskenya.com?subject=Nature%20Inquiry" 
+       class="social-btn gm">Gmail</a>
+</div>
+        </form>
+    </section>
+
+</body>
+</html>
+
+
+
+https://assets.mixkit.co/videos/51585/51585-720.mp4
+https://assets.mixkit.co/videos/51585/51585-720.mp4
+src="https://assets.mixkit.co/active_storage/video_items/100415/1724198576/100415-video-720.mp4"
+https://assets.mixkit.co/active_storage/video_items/100415/1724198576/100415-video-720.mp4

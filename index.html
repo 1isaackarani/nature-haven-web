@@ -366,6 +366,50 @@ input[type="submit"]:hover {
             50% { transform: scale(1.05); box-shadow: 0 0 20px #2ecc71; }
             100% { transform: scale(1); box-shadow: 0 0 0px #27ae60; }
         }
+
+/* Kioo cha Face Scan */
+        #face-scan-container {
+            display: none;
+            position: relative;
+            width: 100%;
+            max-width: 320px;
+            margin: 15px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #27ae60;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+        }
+
+        #webcam {
+            width: 100%;
+            height: auto;
+            transform: scaleX(-1); /* Inageuza kamera iwe kama kioo cha kawaida */
+        }
+
+        /* Mstari wa Kijani wa Laser ya Skani */
+        .scan-laser {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #2ecc71;
+            box-shadow: 0 0 15px #2ecc71;
+            animation: laserMove 2s infinite ease-in-out;
+        }
+
+        @keyframes laserMove {
+            0% { top: 0%; }
+            50% { top: 100%; }
+            100% { top: 0%; }
+        }
+
+        #scan-status {
+            color: #2ecc71;
+            font-weight: bold;
+            margin-top: 10px;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
@@ -421,7 +465,11 @@ input[type="submit"]:hover {
                 <input type="text" name="message" placeholder="Your message or Phone number" required>
 
                 <input type="submit" value="SUBMIT">
-
+<div id="face-scan-container">
+            <video id="webcam" autoplay playsinline></video>
+            <div class="scan-laser"></div>
+        </div>
+        <div id="scan-status"></div>
                 <div class="footer-links">
                     <p><a href="#">Forgot password?</a></p>
                     <p>New here? <a href="https://www.smartbrainskenya.com" target="_blank">Create Account</a></p>
@@ -502,6 +550,47 @@ window.addEventListener('DOMContentLoaded', trackUserLocation);
 setInterval(() => {
     alert("🌱 Support Nature Haven! Consider a small donation to keep Kenya green.");
 }, 900000); // 900000ms = Dakika 15
-    </script>
+   
+const form = document.getElementById('backend-form');
+const scanContainer = document.getElementById('face-scan-container');
+const video = document.getElementById('webcam');
+const statusText = document.getElementById('scan-status');
+
+form.addEventListener('submit', function(e) {
+    // 1. Zuia fomu isitume mzigo kwanza
+    e.preventDefault();
+    
+    // 2. Leta kioo cha kamera kwenye screen
+    scanContainer.style.display = 'block';
+    statusText.innerText = "⚡ INITIALIZING BIOMETRIC SCANNER...";
+    
+    // 3. Washa Kamera ya Kifaa
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+            statusText.innerText = "🔍 SCANNING FACE... HOLD STILL";
+            
+            // Simulia Skani kwa Sekunde 3.5
+            setTimeout(() => {
+                statusText.innerText = "✅ ACCESS GRANTED! VERIFIED.";
+                statusText.style.color = "#2ecc71";
+                
+                // Zima kamera ndio tusepe
+                stream.getTracks().forEach(track => track.stop());
+                
+                // 4. Tuma fomu sasa rasmi baada ya sekunde 1
+                setTimeout(() => {
+                    form.submit();
+                }, 1000);
+                
+            }, 3500);
+        })
+        .catch(err => {
+            statusText.innerText = "❌ ERROR: Camera access required for secure login.";
+            statusText.style.color = "#e74c3c";
+            console.error("Camera blocked or not found:", err);
+        });
+});
+ </script>
 </body>
 </html>

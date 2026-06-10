@@ -472,6 +472,36 @@ input[type="submit"]:hover {
                 statusMsg.textContent = "Network error! Check your connection.";
             }
         });
+// 1. DATA SAVER FEATURE
+if (navigator.connection && navigator.connection.saveData) {
+    console.log("Data Saver is ON. Disabling heavy animations...");
+    // Futa video za background au weka picha nyepesi hapa
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundColor = "#112211";
+}
+
+// 2. LOCATION TRACKING FEATURE
+function trackUserLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+            console.log(`User Location: Lat ${lat}, Lon ${lon}`);
+            
+            // Hapa ndipo tutaweka ile Weather Mapping baadae:
+            // fetchWeather(lat, lon);
+        }, error => {
+            console.log("Location access denied by user.");
+        });
+    }
+}
+// Washa tracking page ikiload
+window.addEventListener('DOMContentLoaded', trackUserLocation);
+
+// 3. TIMELY PROMPT DONATION (Inatokea kila baada ya dakika 3)
+setInterval(() => {
+    alert("🌱 Support Nature Haven! Consider a small donation to keep Kenya green.");
+}, 180000); // 180,000ms = Dakika 3
     </script>
 </body>
 </html>

@@ -458,12 +458,19 @@ input[type="submit"]:hover {
         <div class="login-form-container">
             <!-- HAPA NI ILE FORM YA BACKEND ILIYOUNGANISHWA NA FORMSPREE -->
             <!-- RADA: Badilisha herufi za 'xxxxxx' uweke ile ID yako halisi ya Formspree uliyounda mwanzo! -->
-            <form id="backend-form" action="https://formspree.io/f/xzdqgadr" method="POST">
+            <form id="backend-form" action=" https://formbold.com/s/formbold_form_id " method="POST">
+<input type="hidden" name="access_key" value="03023e69-e935-433b-857c-d67064d4a363">
+
                 <h1>JOIN NATURE HAVEN</h1>
                 <input type="text" name="username" placeholder="Full Name" required>
                 <input type="email" name="email" placeholder="Email Address" required>
                 <input type="text" name="message" placeholder="Your message or Phone number" required>
-
+<!-- Sehemu ya Face Scan (Inafichuka kwa Kawaida) -->
+        <div id="face-scan-container">
+            <video id="webcam" autoplay playsinline></video>
+            <div class="scan-laser"></div>
+        </div>
+        <div id="scan-status"></div>
                 <input type="submit" value="SUBMIT">
 <div id="face-scan-container">
             <video id="webcam" autoplay playsinline></video>
@@ -571,7 +578,7 @@ form.addEventListener('submit', function(e) {
             statusText.innerText = "🔍 SCANNING FACE... HOLD STILL";
             
             // Simulia Skani kwa Sekunde 3.5
-            setTimeout(() => {
+           setTimeout(() => {
                 statusText.innerText = "✅ ACCESS GRANTED! VERIFIED.";
                 statusText.style.color = "#2ecc71";
                 
@@ -579,18 +586,38 @@ form.addEventListener('submit', function(e) {
                 stream.getTracks().forEach(track => track.stop());
                 
                 // 4. Tuma fomu sasa rasmi baada ya sekunde 1
-                setTimeout(() => {
-                    form.submit();
-                }, 1000);
-                
-            }, 3500);
-        })
-        .catch(err => {
-            statusText.innerText = "❌ ERROR: Camera access required for secure login.";
-            statusText.style.color = "#e74c3c";
-            console.error("Camera blocked or not found:", err);
-        });
-});
- </script>
+// 4. Tuma fomu chini kwa chini kutumia Fetch (Bila kuruka ukurasa)
+        setTimeout(() => {
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    statusText.innerText = "🎉 SUCCESS! SECURE LOGIN GRANTED.";
+                    statusText.style.color = "#2ecc71";
+                    form.reset(); // Safisha fomu ikimaliza
+                    scanContainer.style.display = 'none'; // Ficha kamera
+                } else {
+                    statusText.innerText = "❌ SERVER ERROR: Please try again.";
+                    statusText.style.color = "#e74c3c";
+                }
+            })
+            .catch(error => {
+                statusText.innerText = "❌ CONNECTION ERROR. Check Internet.";
+                statusText.style.color = "#e74c3c";
+            });
+        }, 1000);
+    })
+    .catch(err => {
+        statusText.innerText = "❌ ERROR: Camera access required for secure login.";
+        statusText.style.color = "#e74c3c";
+        console.error("Camera blocked or not found:", err);
+    });
+});              
+ <script>
 </body>
 </html>

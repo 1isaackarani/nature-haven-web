@@ -200,7 +200,44 @@
             outline: none;
             font-size: 0.95rem;
         }
+/* Kitufe cha SUBMIT cha Kawaida */
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
+        /* Kitufe kikiguswa na Mouse (Hover) kinajivuta na kung'aa */
+        input[type="submit"]:hover { 
+            background: #2ecc71; 
+            transform: translateY(-3px) scale(1.02); 
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+        }
+
+        /* Kontena Kuu la Kioo (Glassmorphism Container) */
+        .login-form-container {
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.4s ease-in-out;
+        }
+
+        /* Fomu ikiguswa na mouse inajivuta juu kidogo na kutoa mwangaza wa kijani */
+        .login-form-container:hover {
+            transform: translateY(-5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px 0 rgba(76, 175, 80, 0.2); 
+        }
         input[type="submit"] {
             width: 100%;
             padding: 12px;
@@ -216,7 +253,39 @@
         }
 
         input[type="submit"]:hover { background: #2ecc71; transform: translateY(-3px); }
+.login-form-container {
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    transition: all 0.4s ease-in-out;
+}
 
+/* Fomu ikiguswa na mouse inajivuta juu kidogo na kung'aa */
+.login-form-container:hover {
+    transform: translateY(-5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 12px 40px 0 rgba(76, 175, 80, 0.2); /* Glow ya kijani */
+}
+
+input[type="text"]:focus, input[type="email"]:focus {
+    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid #4caf50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+    outline: none;
+}
+
+
+input[type="submit"] {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background: #2e7d32;
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
+}
         .footer-links {
             margin-top: 15px;
         }

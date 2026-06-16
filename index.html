@@ -459,7 +459,7 @@ input[type="submit"]:hover {
             <!-- HAPA NI ILE FORM YA BACKEND ILIYOUNGANISHWA NA FORMSPREE -->
             <!-- RADA: Badilisha herufi za 'xxxxxx' uweke ile ID yako halisi ya Formspree uliyounda mwanzo! -->
            <!-- Hapa tunaondoa ile action ya nje kabisa -->
-    <form id="backend-form" onsubmit="event.preventDefault();" method="POST">
+  <form id="backend-form" action="https://api.web3forms.com/submit" method="POST">
 <input type="hidden" name="access_key" value="03023e69-e935-433b-857c-d67064d4a363">
 
                 <h1>JOIN NATURE HAVEN</h1>
@@ -555,6 +555,41 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 });
+</script>
+<script>
+    const form = document.getElementById('backend-form');
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Inazuia page kurefresh
+
+        const formData = new FormData(form);
+        const object = Object.fromEntries(formData);
+        const json = JSON.stringify(object);
+
+        console.log("Sending data to backend...");
+
+        fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: json
+        })
+        .then(async (response) => {
+            let res = await response.json();
+            if (response.status == 200) {
+                alert("Success! Data securely routed to Isaac's backend.");
+                form.reset();
+            } else {
+                alert("Server Error: " + res.message);
+            }
+        })
+        .catch(error => {
+            console.log(error);
+            alert("Something went wrong with the connection!");
+        });
+    });
 </script>
 </body>
 </html>
